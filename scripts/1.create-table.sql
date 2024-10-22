@@ -1,3 +1,6 @@
+\c pg1
+
+
 -- char (CHARACTER)
 -- varchar (VARIABLE CHARACTER)
 DROP TABLE IF EXISTS customers;
