@@ -14,7 +14,9 @@
 --
 -- ALTER TABLE orders ADD CHECK(amount >= 0);
 
-INSERT INTO orders(customer_id, amount) VALUES(29, 10);
+-- ALTER TABLE customers ALTER COLUMN id PRIMARY KEY();
+
+-- INSERT INTO orders(customer_id, amount) VALUES(29, 10);
 
 -- SELECT constraint_name, constraint_type, table_name FROM information_schema.table_constraints WHERE table_schema =  'public';
 

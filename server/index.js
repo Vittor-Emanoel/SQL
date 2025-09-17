@@ -10,15 +10,25 @@ const client = new Client({
 
 await client.connect();
 
-const res = await client.query(`
-  SELECT c.*,
-  JSON_AGG(ord) as orders
-  FROM customers as c
-   LEFT JOIN  orders as ord ON customer_id = c.id
-   WHERE c.id = 9
-   GROUP BY c.id
-  ;
-`)
+try {
+  await client.query('BEGIN')
 
+  await client.query('INSERT INTO customers (first_name, last_name) VALUES($1, $2)', ['Mateus', 'Silva'])
 
-console.log(JSON.stringify(res.rows, null, 2))
+  await client.query('SAVEPOINT sp_01')
+
+  try{
+    await client.query('UPDATE bank_accounts SET balance = balance - 2000 WHERE user_id = 1')
+    await client.query('UPDATE bank_accounts SET balance = balance - 2000 WHERE user_id = 2')
+  } catch {
+     await client.query('ROLLBACK TO SAVEPOINT sp_01')
+  }
+
+  await client.query('COMMIT')
+} catch (error) {
+  await client.query('ROLLBACK')
+  console.log(error)
+}
+
+// console.log(JSON.stringify(res.rows, null, 2))
+await client.end()

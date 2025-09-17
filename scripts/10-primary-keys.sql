@@ -5,4 +5,4 @@
 -- DELETE FROM customers where id = 1 and email = 'oi@gmail.com';
 
 -- SELECT * FROM customers where id = 1;
- INSERT INTO customers(id, email) VALUES(1, 'oi@gmail.com');
+ -- INSERT INTO customers(id, email) VALUES(1, 'oi@gmail.com');
